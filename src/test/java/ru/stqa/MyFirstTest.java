@@ -23,10 +23,13 @@ public class MyFirstTest {
     }
 
     @Test
-    public void MyVeryFirstTest()  {
-        driver.get("http://www.google.com");
-        driver.findElement(By.name("q")).sendKeys("web driver");
-        //driver.findElement(By.name("btnK").click());
+    public void MyVeryFirstTest() throws InterruptedException {
+        driver.get("http://localhost/litecart/admin/");
+        driver.findElement(By.name("username")).sendKeys("test");
+        driver.findElement(By.name("password")).sendKeys("test");
+        //driver.manage().wait(300); // 2sec();
+        Thread.sleep(2000);
+        driver.findElement(By.name("login")).click();
         //driver.findElement(By.xpath("//div[@class='lJ9FBc']/center/input[@class='gNO89b']").click());
         //wait.until(titleIs("WebDriver - Search in Google"));
     }
