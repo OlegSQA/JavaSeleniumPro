@@ -186,8 +186,6 @@ public class AssignmentNumber6 {
         wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' vQmods']")));
 
 
-
-
         Thread.sleep(2000);
     }
 
