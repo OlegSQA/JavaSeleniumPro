@@ -47,6 +47,7 @@ public class AssignmentNumber6 {
         wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Template']")));
         driver.findElement(By.xpath("//span[contains(text(),'Logotype')]")).click();
         wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Logotype']")));
+        System.out.println("Appearence (misspelled) complete");
 
         //Catalog
         driver.findElement(By.xpath("//span[contains(text(),'Catalog')]")).click();
@@ -67,14 +68,17 @@ public class AssignmentNumber6 {
         wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Quantity Units']")));
         driver.findElement(By.xpath("//span[contains(text(),'CSV Import/Export')]")).click();
         wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' CSV Import/Export']")));
+        System.out.println("Catalog complete");
 
         //Countries
         driver.findElement(By.xpath("//span[contains(text(),'Countries')]")).click();
         wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Countries']")));
+        System.out.println("Countries complete");
 
         //Currencies
         driver.findElement(By.xpath("//span[contains(text(),'Currencies')]")).click();
         wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Currencies']")));
+        System.out.println("Currencies complete");
 
         //Customers
         driver.findElement(By.xpath("//span[contains(text(),'Customers')]")).click();
@@ -83,10 +87,12 @@ public class AssignmentNumber6 {
         wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' CSV Import/Export']")));
         driver.findElement(By.xpath("//span[contains(text(),'Newsletter')]")).click();
         wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Newsletter']")));
+        System.out.println("Customers complete");
 
         //Geo Zones
         driver.findElement(By.xpath("//span[contains(text(),'Geo Zones')]")).click();
         wait.until(presenceOfElementLocated(By.xpath("//h1[text()= ' Geo Zones']")));
+        System.out.println("Geo Zones complete");
 
         //Languages
         driver.findElement(By.xpath("//span[contains(text(),'Languages')]")).click();
@@ -95,6 +101,7 @@ public class AssignmentNumber6 {
         wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Storage Encoding']")));
         driver.findElement(By.xpath("//span[contains(text(),'Languages')]")).click();
         wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Languages']")));
+        System.out.println("Languages complete");
 
         //Modules
         driver.findElement(By.xpath("//span[contains(text(),'Modules')]")).click();
@@ -111,6 +118,7 @@ public class AssignmentNumber6 {
         wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Order Success Modules']")));
         driver.findElement(By.xpath("//span[text() ='Order Action']")).click();
         wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Order Action Modules']")));
+        System.out.println("Modules complete");
 
         //Orders
         driver.findElement(By.xpath("//span[contains(text(),'Orders')]")).click();
@@ -119,6 +127,7 @@ public class AssignmentNumber6 {
         wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Order Statuses']")));
         driver.findElement(By.xpath("//span[text()='Orders']")).click();
         wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Orders']")));
+        System.out.println("Orders complete");
 
         //Pages
         driver.findElement(By.xpath("//span[text() ='Pages']")).click();
@@ -131,9 +140,9 @@ public class AssignmentNumber6 {
         wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Most Shopping Customers']")));
         driver.findElement(By.xpath("//span[text() ='Monthly Sales']")).click();
         wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Monthly Sales']")));
+        System.out.println("Pages complete");
 
         //Settings
-
         driver.findElement(By.xpath("//span[text() ='Settings']")).click();
         wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Settings']")));
         driver.findElement(By.xpath("//span[text() ='Store Info']")).click();
@@ -152,10 +161,12 @@ public class AssignmentNumber6 {
         wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Settings']")));
         driver.findElement(By.xpath("//span[text() ='Security']")).click();
         wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Settings']")));
+        System.out.println("Settings complete");
 
         //Slides
         driver.findElement(By.xpath("//span[text() ='Slides']")).click();
         wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Slides']")));
+        System.out.println("Slides complete");
 
         //Tax
         driver.findElement(By.xpath("//span[text() ='Tax']")).click();
@@ -164,6 +175,7 @@ public class AssignmentNumber6 {
         wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Tax Classes']")));
         driver.findElement(By.xpath("//span[text() ='Tax Rates']")).click();
         wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Tax Rates']")));
+        System.out.println("Tax complete");
 
         //Translations
         driver.findElement(By.xpath("//span[text() ='Translations']")).click();
@@ -174,19 +186,23 @@ public class AssignmentNumber6 {
         wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Scan Files For Translations']")));
         driver.findElement(By.xpath("//span[text() ='CSV Import/Export']")).click();
         wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' CSV Import/Export']")));
+        System.out.println("Translations complete");
 
         //Users
         driver.findElement(By.xpath("//span[text() ='Users']")).click();
         wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Users']")));
+        System.out.println("Users complete");
 
         //vQmods
         driver.findElement(By.xpath("//span[text() ='vQmods']")).click();
         wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' vQmods']")));
         driver.findElement(By.xpath("//ul[@class='docs']")).click();
         wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' vQmods']")));
-
-
+        System.out.println("vQmods complete");
+        System.out.println("_______________________");
         Thread.sleep(2000);
+        System.out.println("Success!");
+
     }
 
     @After
