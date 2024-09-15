@@ -33,6 +33,12 @@ public class AssignmentNumber7 {
     @Test
     public void LocatingStickers() {
         driver.get("http://localhost/litecart/en/");
+        //if (areElementsPresent(driver, By.cssSelector("div.image-wrapper"))) {
+        if (areElementsPresent(driver, By.cssSelector("div.image-wrapper"))) {
+            System.out.println("Wrapper is present.");
+        } else {
+            System.out.println("No wrappers found.");
+        }
         List<WebElement> imageWrappers = driver.findElements(By.cssSelector("div.image-wrapper"));
         System.out.println("Total number of image-wrapper elements is " + imageWrappers.size());
         System.out.println("---------------------------------------------------");
@@ -43,16 +49,25 @@ public class AssignmentNumber7 {
 
             // Check if exactly one "sticker" is found and include the list index in the output
             if (stickers.size() == 1) {
-                System.out.println("Correct: Found 1 sticker in image-wrapper number " + (i + 1) + ".");
+                System.out.println("Correct: Found 1 (" + stickers.get(0).getText() + ") sticker in image-wrapper number " + (i + 1) + ".");
             } else {
                 System.out.println("Error: Found " + stickers.size() + " stickers in image-wrapper " + (i + 1) + ".");
             }
         }
         System.out.println("success");
     }
-        private boolean isElementPresent (WebDriver driver, By locator){
-            return driver.findElements(locator).size() == 1;
+    private static boolean isElementPresent(WebDriver driver, By locator) {
+        try {
+            driver.findElement(locator);
+            return true;
+        } catch (NoSuchElementException ex) {
+            return false;
         }
+    }
+    private static boolean areElementsPresent(WebDriver driver, By locator) {
+        return driver.findElements(locator).size() > 0;
+    }
+
 
     @After
     public void stop () {
