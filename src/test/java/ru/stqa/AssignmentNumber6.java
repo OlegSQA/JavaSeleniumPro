@@ -6,13 +6,16 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.HasCapabilities;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
@@ -20,198 +23,96 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElemen
 public class AssignmentNumber6 {
     private WebDriver driver;
     private WebDriverWait wait;
-    //WebDriver chromeDriver = new ChromeDriver();
-    //WebDriver firefoxDriver = new FirefoxDriver();
 
     @Before
     public void start() {
 
         driver = new ChromeDriver();
         //firefoxDriver = new FirefoxDriver();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
         wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+
+
     }
+
+    public void clickElementWithWait(WebDriver driver, By by) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3)); // 10 seconds timeout
+        try {
+            WebElement element = wait.until(ExpectedConditions.elementToBeClickable(by));
+            element.click();
+        } catch (Exception e) {
+            System.out.println("Element not clickable: " + e.getMessage());
+        }
+    }
+
 
     @Test
     public void MyVeryFirstTest() throws InterruptedException {
-        driver.get("http://localhost/litecart/admin/");
-        driver.findElement(By.name("username")).sendKeys("admin");
-        driver.findElement(By.name("password")).sendKeys("admin");
-        //Thread.sleep(2000);
-        driver.findElement(By.name("login")).click();
+        try {
+            driver.get("http://localhost/litecart/admin/");
+            driver.findElement(By.name("username")).sendKeys("admin");
+            driver.findElement(By.name("password")).sendKeys("admin");
+            driver.findElement(By.name("login")).click();
+            wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("div.logotype")));
+            System.out.println("Page verified");
+            final int maxRetries = 3;
 
-        //Appearence
-        driver.findElement(By.xpath("//span[contains(text(),'Appearence')]")).click();
-        wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Template']")));
-        driver.findElement(By.xpath("//span[contains(text(),'Template')]")).click();
-        wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Template']")));
-        driver.findElement(By.xpath("//span[contains(text(),'Logotype')]")).click();
-        wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Logotype']")));
-        System.out.println("Appearence (misspelled) complete");
+            //List<WebElement> mainMenuItems = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector("li#app-"))); // Adjust selector for main menu items
 
-        //Catalog
-        driver.findElement(By.xpath("//span[contains(text(),'Catalog')]")).click();
-        wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Catalog']")));
-        driver.findElement(By.xpath("//span[contains(text(),'Product Groups')]")).click();
-        wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Product Groups']")));
-        driver.findElement(By.xpath("//span[contains(text(),'Option Groups')]")).click();
-        wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Option Groups']")));
-        driver.findElement(By.xpath("//span[contains(text(),'Manufacturers')]")).click();
-        wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Manufacturers']")));
-        driver.findElement(By.xpath("//span[contains(text(),'Suppliers')]")).click();
-        wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Suppliers']")));
-        driver.findElement(By.xpath("//span[contains(text(),'Delivery Statuses')]")).click();
-        wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Delivery Statuses']")));
-        driver.findElement(By.xpath("//span[contains(text(),'Sold Out Statuses')]")).click();
-        wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Sold Out Statuses']")));
-        driver.findElement(By.xpath("//span[contains(text(),'Quantity Units')]")).click();
-        wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Quantity Units']")));
-        driver.findElement(By.xpath("//span[contains(text(),'CSV Import/Export')]")).click();
-        wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' CSV Import/Export']")));
-        System.out.println("Catalog complete");
+            // Iterate over each main menu item
+            List<WebElement> mainMenuItems = driver.findElements(By.cssSelector("li#app-"));
+            System.out.println("Mane Menu contains " + (mainMenuItems.size()) + " items.");
+            System.out.println("------------------------------------------------");
 
-        //Countries
-        driver.findElement(By.xpath("//span[contains(text(),'Countries')]")).click();
-        wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Countries']")));
-        System.out.println("Countries complete");
+            for (int i = 0; i < mainMenuItems.size(); i++) {
 
-        //Currencies
-        driver.findElement(By.xpath("//span[contains(text(),'Currencies')]")).click();
-        wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Currencies']")));
-        System.out.println("Currencies complete");
+                mainMenuItems = driver.findElements(By.cssSelector("li#app-"));
+                mainMenuItems.get(i).click();
+                //WebElement spanName = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='name']")));
+                WebElement h1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.tagName("h1")));
+                System.out.println("------------------------------------------------");
+                System.out.println("Clicked on the Main Menu Item # " + (i + 1));
+                System.out.println("Page Title is " + h1.getText());
 
-        //Customers
-        driver.findElement(By.xpath("//span[contains(text(),'Customers')]")).click();
-        wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Customers']")));
-        driver.findElement(By.xpath("//span[contains(text(),'CSV Import/Export')]")).click();
-        wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' CSV Import/Export']")));
-        driver.findElement(By.xpath("//span[contains(text(),'Newsletter')]")).click();
-        wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Newsletter']")));
-        System.out.println("Customers complete");
+                List<WebElement> subMenuItems = driver.findElements(By.cssSelector("li[id^=doc-"));
+                System.out.println("This Main Menu Item contains " + (subMenuItems.size()) + " SubMenus.");
+                System.out.println("------------------------------------------------");
 
-        //Geo Zones
-        driver.findElement(By.xpath("//span[contains(text(),'Geo Zones')]")).click();
-        wait.until(presenceOfElementLocated(By.xpath("//h1[text()= ' Geo Zones']")));
-        System.out.println("Geo Zones complete");
+                for (int j = 0; j < subMenuItems.size(); j++) {
 
-        //Languages
-        driver.findElement(By.xpath("//span[contains(text(),'Languages')]")).click();
-        wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Languages']")));
-        driver.findElement(By.xpath("//span[contains(text(),'Storage Encoding')]")).click();
-        wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Storage Encoding']")));
-        driver.findElement(By.xpath("//span[contains(text(),'Languages')]")).click();
-        wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Languages']")));
-        System.out.println("Languages complete");
+                    subMenuItems.get(j).click();
+                    WebElement h1Element = new WebDriverWait(driver, Duration.ofSeconds(5))
+                            .until(ExpectedConditions.visibilityOfElementLocated(By.tagName("h1")));
+                    System.out.println("Clicked on Submenu Item #" + (j + 1) + " under Main Menu Item #" + (i + 1));
+                    System.out.println("Page Title changed to <" + h1Element.getText() + ">.");
+                    //System.out.println("Page Title changed to <" + h1.getText() + ">.");
+                    subMenuItems = driver.findElements(By.cssSelector("li[id^=doc-"));
+                }
+                //i++;*/
+            }
 
-        //Modules
-        driver.findElement(By.xpath("//span[contains(text(),'Modules')]")).click();
-        wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Job Modules']")));
-        driver.findElement(By.xpath("//span[text() ='Customer']")).click();
-        wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Customer Modules']")));
-        driver.findElement(By.xpath("//span[text()='Shipping']")).click();
-        wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Shipping Modules']")));
-        driver.findElement(By.xpath("//span[text() ='Payment']")).click();
-        wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Payment Modules']")));
-        driver.findElement(By.xpath("//span[text() ='Order Total']")).click();
-        wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Order Total Modules']")));
-        driver.findElement(By.xpath("//span[text()='Order Success']")).click();
-        wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Order Success Modules']")));
-        driver.findElement(By.xpath("//span[text() ='Order Action']")).click();
-        wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Order Action Modules']")));
-        System.out.println("Modules complete");
 
-        //Orders
-        driver.findElement(By.xpath("//span[contains(text(),'Orders')]")).click();
-        wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Orders']")));
-        driver.findElement(By.xpath("//span[text() ='Order Statuses']")).click();
-        wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Order Statuses']")));
-        driver.findElement(By.xpath("//span[text()='Orders']")).click();
-        wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Orders']")));
-        System.out.println("Orders complete");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            System.out.println("------------------------------------------------");
+            System.out.println("------------------SUCCESS-----------------------");
 
-        //Pages
-        driver.findElement(By.xpath("//span[text() ='Pages']")).click();
-        wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Pages']")));
-        driver.findElement(By.xpath("//span[text() ='Reports']")).click();
-        wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Monthly Sales']")));
-        driver.findElement(By.xpath("//span[text()='Most Sold Products']")).click();
-        wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Most Sold Products']")));
-        driver.findElement(By.xpath("//span[text() ='Most Shopping Customers']")).click();
-        wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Most Shopping Customers']")));
-        driver.findElement(By.xpath("//span[text() ='Monthly Sales']")).click();
-        wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Monthly Sales']")));
-        System.out.println("Pages complete");
-
-        //Settings
-        driver.findElement(By.xpath("//span[text() ='Settings']")).click();
-        wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Settings']")));
-        driver.findElement(By.xpath("//span[text() ='Store Info']")).click();
-        wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Settings']")));
-        driver.findElement(By.xpath("//span[text()='Defaults']")).click();
-        wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Settings']")));
-        driver.findElement(By.xpath("//span[text() ='General']")).click();
-        wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Settings']")));
-        driver.findElement(By.xpath("//span[text() ='Listings']")).click();
-        wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Settings']")));
-        driver.findElement(By.xpath("//span[text() ='Images']")).click();
-        wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Settings']")));
-        driver.findElement(By.xpath("//span[text() ='Checkout']")).click();
-        wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Settings']")));
-        driver.findElement(By.xpath("//span[text()='Advanced']")).click();
-        wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Settings']")));
-        driver.findElement(By.xpath("//span[text() ='Security']")).click();
-        wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Settings']")));
-        System.out.println("Settings complete");
-
-        //Slides
-        driver.findElement(By.xpath("//span[text() ='Slides']")).click();
-        wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Slides']")));
-        System.out.println("Slides complete");
-
-        //Tax
-        driver.findElement(By.xpath("//span[text() ='Tax']")).click();
-        wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Tax Classes']")));
-        driver.findElement(By.xpath("//span[text()='Tax Classes']")).click();
-        wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Tax Classes']")));
-        driver.findElement(By.xpath("//span[text() ='Tax Rates']")).click();
-        wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Tax Rates']")));
-        System.out.println("Tax complete");
-
-        //Translations
-        driver.findElement(By.xpath("//span[text() ='Translations']")).click();
-        wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Search Translations']")));
-        driver.findElement(By.xpath("//span[text()='Search Translations']")).click();
-        wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Search Translations']")));
-        driver.findElement(By.xpath("//span[text() ='Scan Files']")).click();
-        wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Scan Files For Translations']")));
-        driver.findElement(By.xpath("//span[text() ='CSV Import/Export']")).click();
-        wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' CSV Import/Export']")));
-        System.out.println("Translations complete");
-
-        //Users
-        driver.findElement(By.xpath("//span[text() ='Users']")).click();
-        wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' Users']")));
-        System.out.println("Users complete");
-
-        //vQmods
-        driver.findElement(By.xpath("//span[text() ='vQmods']")).click();
-        wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' vQmods']")));
-        driver.findElement(By.xpath("//ul[@class='docs']")).click();
-        wait.until(presenceOfElementLocated(By.xpath("//h1[text()=' vQmods']")));
-        System.out.println("vQmods complete");
-        System.out.println("_______________________");
-        Thread.sleep(2000);
-        System.out.println("Success!");
-
+            driver.quit();
+            System.out.println("driver dismantled");
+        }
     }
-
-    @After
-    public void stop() {
+    /*@After
+    public void stop () {
         if (driver != null) {
             driver.quit();
             driver = null;
         }
-        System.out.println("da driver quit");
-    }
+        System.out.println("driver dismantled again");
 
+    }*/
 }
+
+
+
+

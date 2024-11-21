@@ -34,27 +34,28 @@ public class AssignmentNumber7 {
     public void LocatingStickers() {
         driver.get("http://localhost/litecart/en/");
         //if (areElementsPresent(driver, By.cssSelector("div.image-wrapper"))) {
-        if (areElementsPresent(driver, By.cssSelector("div.image-wrapper"))) {
-            System.out.println("Wrapper is present.");
+        if (areElementsPresent(driver, By.cssSelector("li[class='product column shadow hover-light']"))) {
+            System.out.println("List of items is present.");
         } else {
-            System.out.println("No wrappers found.");
+            System.out.println("No items found.");
         }
-        List<WebElement> imageWrappers = driver.findElements(By.cssSelector("div.image-wrapper"));
-        System.out.println("Total number of image-wrapper elements is " + imageWrappers.size());
+        List<WebElement> listItems = driver.findElements(By.cssSelector("li[class='product column shadow hover-light']"));
+        System.out.println("Total number of items is " + listItems.size());
         System.out.println("---------------------------------------------------");
 
-        for (int i = 0; i < imageWrappers.size(); i++) {
-            WebElement imageWrapper = imageWrappers.get(i);
-            List<WebElement> stickers = imageWrapper.findElements(By.cssSelector("div.sticker"));
+        for (int i = 0; i < listItems.size(); i++) {
+            WebElement listItem = listItems.get(i);
+            List<WebElement> stickers = listItem.findElements(By.cssSelector("div.sticker"));
 
             // Check if exactly one "sticker" is found and include the list index in the output
             if (stickers.size() == 1) {
-                System.out.println("Correct: Found 1 (" + stickers.get(0).getText() + ") sticker in image-wrapper number " + (i + 1) + ".");
+                System.out.println("Correct: Found 1 (" + stickers.get(0).getText() + ") sticker in List Item number " + (i + 1) + ".");
             } else {
-                System.out.println("Error: Found " + stickers.size() + " stickers in image-wrapper " + (i + 1) + ".");
+                System.out.println("Error: Found " + stickers.size() + " stickers in List Item " + (i + 1) + ".");
             }
         }
-        System.out.println("success");
+        System.out.println("---------------------------------------------------");
+        System.out.println("--------------------Success!-----------------------");
     }
     private static boolean isElementPresent(WebDriver driver, By locator) {
         try {
@@ -79,4 +80,3 @@ public class AssignmentNumber7 {
     }
 
 }
-
