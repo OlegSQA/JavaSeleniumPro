@@ -123,10 +123,11 @@ public class AssignmentNumber8 {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            System.out.println( "There are no Zones listed for any other Country at this time.");
+            System.out.println( "There aren't any Zones listed for any other Country at this time.");
             System.out.println( "    ");
             System.out.println("------------------------------------------------");
-            System.out.println("------------------SUCCESS-----------------------");
+            System.out.println("----------------- TEST COMPLETE ----------------");
+            System.out.println("------------------------------------------------");
             driver.quit();
             System.out.println("Driver dismantled");
         }
