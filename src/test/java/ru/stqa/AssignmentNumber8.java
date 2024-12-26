@@ -40,10 +40,10 @@ public class AssignmentNumber8 {
             WebElement h1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.tagName("h1")));
 
             if (h1.getText().equals("Countries")) {
-                System.out.println("Page with title <<" + h1.getText() + ">> verified.");
+                System.out.println("Page with title <<" + h1.getAttribute("textContent").trim() + ">> verified.");
                 System.out.println( "    ");
             } else {
-                System.out.println("Error: Could not verify Page Title. Found: " + h1.getText());
+                System.out.println("Error: Could not verify Page Title. Found: " + h1.getAttribute("textContent").trim());
             }
 
             // Retrieve country names from the table (column 5)
@@ -51,7 +51,7 @@ public class AssignmentNumber8 {
             List<String> actualCountryNames = new ArrayList<>();
 
             for (WebElement element : countryElements) {
-                actualCountryNames.add(element.getText());
+                actualCountryNames.add(element.getAttribute("textContent").trim());
             }
 
             // Create a sorted copy of the list
@@ -123,7 +123,7 @@ public class AssignmentNumber8 {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            System.out.println( "There are no Zones listed for the rest of the countries at this time.");
+            System.out.println( "There are no Zones listed for any other Country at this time.");
             System.out.println( "    ");
             System.out.println("------------------------------------------------");
             System.out.println("------------------SUCCESS-----------------------");
