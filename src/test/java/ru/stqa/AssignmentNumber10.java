@@ -1,24 +1,62 @@
 package ru.stqa;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.Arrays;
 import java.util.List;
 
+@RunWith(Parameterized.class)
 public class AssignmentNumber10 {
     private WebDriver driver;
     private WebDriverWait wait;
+    private final String browser;
+
+    // Parameterized constructor to initialize browser type
+    public AssignmentNumber10(String browser) {
+        this.browser = browser;
+    }
+
+    // Define the list of browsers to test
+    @Parameterized.Parameters(name = "Browser: {0}")
+    public static List<String> browsers() {
+        return Arrays.asList("chrome", "firefox", "safari");
+    }
 
     @Before
     public void start() {
-        driver = new ChromeDriver();
+        System.out.println();
+        System.out.println("Starting test on " + browser);
+        switch (browser.toLowerCase()) {
+            case "chrome":
+                driver = new ChromeDriver();
+                break;
+            case "firefox":
+                driver = new FirefoxDriver();
+                break;
+            case "safari":
+                driver = new SafariDriver();
+                break;
+            default:
+                throw new IllegalArgumentException("Unsupported browser: " + browser);
+        }
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         wait = new WebDriverWait(driver, Duration.ofSeconds(3));
     }
+/*public class AssignmentNumber10 {
+    private WebDriver driver;
+    private WebDriverWait wait;*/
+
+
+
 
     private boolean isGray(String color) {
         String[] values = color.replace("rgba(", "").replace("rgb(", "").replace(")", "").split(", ");
@@ -211,7 +249,9 @@ public class AssignmentNumber10 {
             }finally{
             System.out.println();
             System.out.println("------------------------------------------------");
+            System.out.println("--------------- browser : " + browser + "---------------");
             System.out.println("----------------- TEST COMPLETE ----------------");
+
             System.out.println("------------------------------------------------");
             driver.quit();
             System.out.println("                Driver dismantled");
