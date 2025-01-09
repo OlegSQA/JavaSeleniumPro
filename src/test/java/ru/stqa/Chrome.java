@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 public class Chrome {
     private WebDriver driver;
     private WebDriverWait wait;
-    WebDriver chromeDriver = new ChromeDriver();
+    //WebDriver chromeDriver = new ChromeDriver();
     //WebDriver firefoxDriver = new FirefoxDriver();
 
     @Before
