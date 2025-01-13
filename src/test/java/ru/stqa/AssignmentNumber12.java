@@ -105,8 +105,6 @@ public class AssignmentNumber12 {private WebDriver driver;
         driver.findElement(By.cssSelector("input[name='query']")).click();
         driver.findElement(By.cssSelector("input[name='query']")).sendKeys(itemName);
 
-        boolean isItemPresent;
-
         List<WebElement> searchResults = driver.findElements(By.xpath("//a[contains(text(), 'Abra Ka Duckbra')]"));
         boolean isMatchFound = false;
         for (WebElement result : searchResults) {
