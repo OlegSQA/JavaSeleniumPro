@@ -36,7 +36,9 @@ public class AssignmentNumber12 {private WebDriver driver;
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//a[text()=' Add New Product']"))).click();
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//label[text()=' Enabled']"))).click();
 
-        String itemName = "Abra Ka Duckbra";
+//-----------------------------------name--------------------------------------------
+
+        String itemName = "Abra Ka Duckbra " + System.currentTimeMillis() + "!";
 
         driver.findElement(By.xpath("//input[@name='name[en]']")).sendKeys(itemName);
         driver.findElement(By.xpath("//input[@name='code']")).click();
@@ -46,14 +48,21 @@ public class AssignmentNumber12 {private WebDriver driver;
         driver.findElement(By.xpath("//option[text()='Rubber Ducks']")).click();
         driver.findElement(By.cssSelector("input[name='product_groups[]'][value='1-3']")).click();
 
+//----------------------------quantity----------------------------------------------------
+
         WebElement quantityInput = driver.findElement(By.cssSelector("input[name='quantity']"));
         quantityInput.clear();
         quantityInput.sendKeys("10");
+
         driver.findElement(By.cssSelector("select[name='sold_out_status_id']")).click();
         driver.findElement(By.cssSelector("select[name='sold_out_status_id'] [value='2']")).click();
+
+//---------------------------image-------------------------------------------
+
         WebElement pic = driver.findElement(By.cssSelector("input[type='file']"));
         String picPath = System.getProperty("user.dir") + "/src/test/java/ru/stqa/files/duck.jpg";
         pic.sendKeys(picPath);
+
         WebElement dateValidFrom = driver.findElement(By.cssSelector("input[name='date_valid_from']"));
         dateValidFrom.sendKeys("01052025");
         WebElement dateValidTo = driver.findElement(By.cssSelector("input[name='date_valid_to']"));
@@ -88,7 +97,7 @@ public class AssignmentNumber12 {private WebDriver driver;
         driver.findElement(By.cssSelector("input[name='prices[EUR]']")).click();
         driver.findElement(By.cssSelector("input[name='prices[EUR]']")).sendKeys("8.47");
         driver.findElement(By.cssSelector("button[name='save']")).click();
-        System.out.println("Abra Ka Duckbra added to the catalog..");
+        System.out.println(itemName+" is being added to the catalog..");
 
         //---------------------------- verify product added -----------------------------------
 
@@ -96,22 +105,27 @@ public class AssignmentNumber12 {private WebDriver driver;
         driver.findElement(By.cssSelector("input[name='query']")).click();
         driver.findElement(By.cssSelector("input[name='query']")).sendKeys(itemName);
 
-
         boolean isItemPresent;
-        try {
-            isItemPresent = driver.findElement(By.xpath("//a[contains(text(), 'Abra Ka Duckbra')]")).isDisplayed();
-            System.out.println("Abra Ka Duckbra added to the catalog and verified..");
-            driver.findElement(By.xpath("//a[contains(text(), 'Abra Ka Duckbra')]")).click();
-            wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("button[name='delete']")));
-            driver.findElement(By.cssSelector("button[name='delete']")).click();
-            Thread.sleep(3000);
-            Alert alert = driver.switchTo().alert();
-            alert.accept();
 
+        List<WebElement> searchResults = driver.findElements(By.xpath("//a[contains(text(), 'Abra Ka Duckbra')]"));
+        boolean isMatchFound = false;
+        for (WebElement result : searchResults) {
+            if (itemName.equals(result.getText())) {
+                isMatchFound = true;
+                System.out.println(itemName + " added to the catalog and verified..");
+                result.click();
+                wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("button[name='delete']")));
+                driver.findElement(By.cssSelector("button[name='delete']")).click();
+                Thread.sleep(3000);
+                Alert alert = driver.switchTo().alert();
+                alert.accept();
+                break;
 
-        } catch (NoSuchElementException e) {
-            isItemPresent = false;
-            System.out.println("Abra Ka Duckbra not added to the catalog..");
+            }
+        }
+
+        if (!isMatchFound) {
+            System.out.println( itemName+ " was not added to the catalog..." );
         }
 
         try {
@@ -121,7 +135,7 @@ public class AssignmentNumber12 {private WebDriver driver;
         }
 
 
-        System.out.println("Abra Ka Duckbra deleted..");
+        System.out.println(itemName + " deleted..");
         driver.quit();
         System.out.println("Driver dismantled");
 
