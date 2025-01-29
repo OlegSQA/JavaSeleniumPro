@@ -80,7 +80,7 @@ public class AssignmentNumber13 {
 
             try {
                 // Wait for the dropdown container to be present
-                driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(4));
+                driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
                 wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("select[name='options[Size]']")));
                 WebElement sizeDropdown = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("select[name='options[Size]']")));
                 Select dropdown = new Select(sizeDropdown);
