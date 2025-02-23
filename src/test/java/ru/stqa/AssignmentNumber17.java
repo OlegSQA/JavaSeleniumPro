@@ -81,7 +81,7 @@ public class AssignmentNumber17 {
                         "//tr[@class='row' and not(.//a[text()='[Root]']) and not(.//a[text()='Rubber Ducks'])]"
                 )));
             }
-            System.out.println(" --------------------------------------------------");
+            System.out.println(" ---------------------------------------------------");
 
             // Process each subfolder separately.
             for (String subfolderUrl : subfolderUrls) {
